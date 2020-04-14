@@ -1,7 +1,7 @@
 import { FETCH_DATA, DATA_SUCCESS, DATA_ERROR } from "../actions";
 
 const initialState = {
-  dailyDeaths: [],
+  questions: [],
   isLoading: false,
   error: ""
 };
@@ -14,9 +14,9 @@ export const rootReducer = (state = initialState, action) => {
         isLoading: true
       };
     case DATA_SUCCESS:
-      return {
+      return { 
         ...state,
-        dailyDeaths: action.payload,
+        questions: action.payload,
         isLoading: false,
         error: ""
       };

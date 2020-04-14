@@ -24,18 +24,18 @@ export const fetchData = () => {
         )
         .then(res => {
           // dispatch transition to DATA_SUCCESS
-          console.log("bk: actions/index.js: axios.then: res: ", res);
-          let lastTotalCount = 0;
-          const dailyDeaths = res.data.map(dd => {
-            const currentDDCount = dd.Cases - lastTotalCount;
-            lastTotalCount = dd.Cases;
+          console.log("actions/index.js: axios.then: res: ", res.data.results);
+          const questions = res.data.results.map(questions => {
             return {
-              date: dd.Date,
-              totalDeaths: dd.Cases,
-              dailyDeaths: currentDDCount
+              question: questions.question,
+              category: questions.category,
+              answers: [...questions.incorrect_answers, questions.correct_answer],
+              difficulty: questions.difficulty,
+              type: questions.type
+
             };
-          });
-          dispatch({ type: DATA_SUCCESS, payload: [...dailyDeaths].reverse() });
+          });  
+          dispatch({ type: DATA_SUCCESS, payload: [...questions] });
         })
         .catch(err => {
           // dispatch transition to DATA_ERROR

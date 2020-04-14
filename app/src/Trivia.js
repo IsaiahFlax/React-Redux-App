@@ -9,7 +9,7 @@ import { fetchData } from "./actions";
           dailyDeaths: currentDDCount
         }*/
 
-const CovidGraph = props => {
+const Trivia = props => {
   return (
     <div id="covidGraph">
       {props.isLoading ? (
@@ -21,18 +21,13 @@ const CovidGraph = props => {
             <div style={{ color: "red" }}>*error loading data*</div>
           )}
           <table>
-            <thead>
-              <th>date</th>
-              <th>total deaths</th>
-              <th>daily deaths</th>
-            </thead>
             <tbody>
-              {props.dailyDeaths.map(dd => {
+              {props.questions.map(question => {
                 return (
                   <tr>
-                    <td>{dd.date}</td>
-                    <td>{dd.totalDeaths}</td>
-                    <td>{dd.dailyDeaths}</td>
+                    <td>{question.question}</td>
+                    <td>{question.answers}</td>
+                   
                   </tr>
                 );
               })}
@@ -46,7 +41,7 @@ const CovidGraph = props => {
 
 const mapStateToProps = state => {
   return {
-    dailyDeaths: state.dailyDeaths,
+    questions: state.questions,
     isLoading: state.isLoading,
     error: state.error
   };
@@ -55,4 +50,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { fetchData }
-)(CovidGraph);
+)(Trivia);
